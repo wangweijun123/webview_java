@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true); // 启动js
         // 注入对象后，前端可以window.injectedObject.methodId
-        webView.addJavascriptInterface(new JsObject(webView), "injectedObject");
+        JsBridge jsBridge = new JsBridge(webView);
+        webView.addJavascriptInterface(new JsObject(jsBridge), "injectedObject");
         webView.loadUrl(LOCAL_URL);
 
     }

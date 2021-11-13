@@ -4,14 +4,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
 
 public class JsObject {
-
-    final Handler mHandler = new Handler(Looper.getMainLooper());
-    WebView webView;
-    public JsObject(WebView webView) {
-        this.webView = webView;
+    JsBridge jsBridge;
+    public JsObject(JsBridge jsBridge) {
+        this.jsBridge = jsBridge;
     }
 
     @JavascriptInterface
@@ -22,15 +19,7 @@ public class JsObject {
 //            final String script = "javascript:dj.callback({'title':'cancel'})";
         String response = "{'title':'cancel'}";
         final String script = "javascript:" + "dj.callback" + "(" + response + ")";
-        mHandler.post(new Runnable() { // 必须执行在 UI Thread (JsBrigd同一个线程)
-            @Override
-            public void run() {
-                // java 调用js, 一定是在ui thread, 第二前端告诉你对象以及方法
-                // javascript:dj.callback(xxxx)
-                Log.i(MainActivity.TAG, "java call js and script " + script);
-                webView.evaluateJavascript(script, null);
-            }
-        });
+        jsBridge.post(script);
     }
 
     @JavascriptInterface
@@ -54,15 +43,12 @@ public class JsObject {
             e.printStackTrace();
         }
         Log.i(MainActivity.TAG, "java re = " + re);
-        // 必须执行在 UI Thread (JsBrigd同一个线程)
-        mHandler.post(() -> {
-            // java 调用js, 一定是在ui thread, 第二前端告诉你对象以及方法
-            String response = String.format("{'title':'cancel', 'callBackName': '%s', 're':'%d'}",
-                    callBackName, re);
-            final String script = "javascript:" + "dj.callback" + "(" + response + ")";
-            Log.i(MainActivity.TAG, "java call js and script " + script);
-            webView.evaluateJavascript(script, null);
-        });
+        // java 调用js, 一定是在ui thread, 第二前端告诉你对象以及方法
+        String response = String.format("{'title':'cancel', 'callBackName': '%s', 're':'%d'}",
+                callBackName, re);
+        final String script = "javascript:" + "dj.callback" + "(" + response + ")";
+        Log.i(MainActivity.TAG, "java call js and script " + script);
+        jsBridge.post(script);
     }
 
     interface CallBack {
