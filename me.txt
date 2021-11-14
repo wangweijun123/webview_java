@@ -1,0 +1,5 @@
+1 {"method":"doAsyncAction","types":["string","function","string"],"args":["listenPage",0,"supply"]}
+
+1 js 函数运行在ui thread
+2 java 方法默认在非ui thread (睡一天也不会)
+3 js 同步调用,

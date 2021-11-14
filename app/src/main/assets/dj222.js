@@ -34,6 +34,13 @@ dj.add_async = function(num1, num2, callback){
     window.injectedObject.add_async(num1,num2, callbackname);
 }
 
+dj.invokeJavaMethod = function(json){
+//    var callbackname = dj.callbackname();
+//    dj.addCallback(callbackname,callback);
+        console.log(JS_TAG + 'json = ' + json);
+    var result = window.injectedObject.invokeJavaMethod(json);
+    console.log(JS_TAG + result);
+}
 
 dj.callback = function(para) {
     console.log(JS_TAG + 'para:'+JSON.stringify(para))

@@ -11,6 +11,23 @@ public class JsObject {
         this.jsBridge = jsBridge;
     }
 
+
+    /**
+     * 所有js调用本地方法的通道
+     *
+     * @param apiRequest 请求的方法对应的json映射
+     * @return 返回执行结果
+     */
+    @JavascriptInterface
+    public String invokeJavaMethod(String apiRequest) {
+        Log.i(MainActivity.TAG, "apiRequest = " + apiRequest);
+        // 全部转移到jsapi去做吧
+//        apiRequest = "{\"method\":\"doAsyncAction\",\"types\":[\"string\",\"function\",\"string\"],\"args\":[\"listenPage\",0,\"supply\"]}";
+//        apiRequest = "{\"method\":\"doAction\",\"types\":[\"string\",\"string\"],\"args\":[\"listenPage\",\"supply\"]}";
+
+        return jsBridge.process(apiRequest);
+    }
+
     @JavascriptInterface
     public void post(String cmd, String param) {
         Log.i(MainActivity.TAG, "cmd = " + cmd + ", param = " + param);
@@ -26,11 +43,11 @@ public class JsObject {
     public int add_sync(int num1, int num2) {
         int re = num1 + num2;
         try {
-            Thread.sleep(3000);
+            Thread.sleep(10_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.i(MainActivity.TAG, "java re = " + re);
+        Log.i(MainActivity.TAG, "java re = " + re+ ", tid:"+Thread.currentThread().getId());
         return re;
     }
 

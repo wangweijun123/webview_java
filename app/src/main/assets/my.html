@@ -48,10 +48,19 @@
         });
     }
 
+    function invokeJavaMethod() {
+        dj.invokeJavaMethod('{"method":"doAction","types":["string","string"],"args":["listenPage","supply"]}');
+    }
+
+    function addCallbackName() {
+<!--        dj.invokeJavaMethod('{"method":"doAction","types":["string","string"],"args":["listenPage","supply"]}', );-->
+    }
 </script>
 <div class="item" style="font-size: 20px; color: #ffffff" onclick="callAppToast()">调用: showToast</div>
 <div class="item" style="font-size: 20px; color: #ffffff" onclick="jsCallJavaSync(100, 200)">js call java 同步返回结果</div>
 <div class="item" style="font-size: 20px; color: #ffffff" onclick="jsCallJavaASync(200, 300)">js call java 异步回调结果</div>
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="invokeJavaMethod()">invokeJavaMethod统一入口</div>
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="addCallbackName()">invokeJavaMethod统一入口:添加callbackName</div>
 
 <script src="dj222.js" charset="utf-8"></script>
 </body>
