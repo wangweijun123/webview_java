@@ -18,7 +18,21 @@ public class JsApi {
 
     @JavascriptInterface
     public String doAsyncAction(String dataType, final String extra ,final CallBack jsCallback) {
-        return null;
+        Log.i(MainActivity.TAG, "doAsyncAction dataType:"+dataType+", extra:"+extra);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.i(MainActivity.TAG, "jsCallback onCallBack ...");
+                jsCallback.onCallBack("处理好了返回js");
+            }
+        }).start();
+
+        return "ok";
     }
 
     public interface CallBack {

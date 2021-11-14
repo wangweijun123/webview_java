@@ -2,4 +2,29 @@
 
 1 js 函数运行在ui thread
 2 java 方法默认在非ui thread (睡一天也不会)
-3 js 同步调用,
+3 js 同步调用,java端直接返回
+4 js 异步回调, js 传给java是一个字符串callbackName, 与回调函数function做了一个映射
+当java处理完之后,回调的时候javascript:js对象名字(在js页面中全局变量).callback(result)
+result 是json字符串 {"status":"0", "result":{"list",[], "callbackName":xxxxxx}}, xxxxxx前端传给java层的
+js 通过xxxxx找到回调函数,刷新界面
+
+H5秒开:
+
+webview.loadurl(localUrl) 指定路径
+H5优化: 离线的zip包
+zip包的更新(1 diff 2 文件读写分离,下载之后转移到打开目录,注意这里下载完之后如果正在webview浏览,
+提示用户重新进来),验证:
+监控？
+
+Hybrid 方案:  VasSonic
+java 注册java对象与名字提供给js使用
+java call c : webview.evalJavaScript("javascript:js全局对象名.methodId(params)")
+
+中间通过json格式协议通信
+
+c call java: window.java对象名字.methodId(params)
+
+
+
+
+

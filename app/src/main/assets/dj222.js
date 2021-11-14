@@ -34,10 +34,16 @@ dj.add_async = function(num1, num2, callback){
     window.injectedObject.add_async(num1,num2, callbackname);
 }
 
-dj.invokeJavaMethod = function(json){
-//    var callbackname = dj.callbackname();
-//    dj.addCallback(callbackname,callback);
-        console.log(JS_TAG + 'json = ' + json);
+dj.invokeJavaMethod = function(json, callback){
+       if (callback) {
+           console.log(JS_TAG + 'before json = ' + json);
+//           var callbackname = dj.callbackname();
+           var callbackname = "0";
+           dj.addCallback(callbackname,callback);
+           json = '{"method":"doAsyncAction","types":["string","string","function"],"args":["listenPage","supply","0"]}'
+       }
+
+        console.log(JS_TAG + 'after json = ' + json);
     var result = window.injectedObject.invokeJavaMethod(json);
     console.log(JS_TAG + result);
 }

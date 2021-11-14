@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startFrameAnimation();
+//        startFrameAnimation();
 
         webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true); // 启动js

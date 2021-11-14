@@ -47,6 +47,15 @@ public class JsBridge {
                         @Override
                         public void onCallBack(String msg) {
                             Log.i(MainActivity.TAG, "可以给js返回了哈 msg = " + msg + ", callbackName="+callbackName);
+
+                            String response = String.format("{'title':'%s', 'callBackName': '%s', 're':'%d'}",
+                                    msg, callbackName, 100);
+                            // javascript:dj.callback({"title":"cancel","id":"cancel","callbackname":"djapi_callback_1636628537832_2261"})
+                            final String script = "javascript:" + "dj.callback" + "(" + response + ")";
+
+                            mHandler.post(() -> {
+                                webView.evaluateJavascript(script, null);
+                            });
                         }
                     };
                 } else {
@@ -56,6 +65,7 @@ public class JsBridge {
             Method method = jsApi.getClass().getMethod(methodName, types);
             return String.valueOf(method.invoke(jsApi, values));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return "xxx";
     }

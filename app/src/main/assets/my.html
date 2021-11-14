@@ -53,7 +53,9 @@
     }
 
     function addCallbackName() {
-<!--        dj.invokeJavaMethod('{"method":"doAction","types":["string","string"],"args":["listenPage","supply"]}', );-->
+        dj.invokeJavaMethod('{"method":"doAction","types":["string","string"],"args":["listenPage","supply"]}', function(result){
+            console.info('wangwiejun html addCallbackName  result = '+JSON.stringify(result));
+        });
     }
 </script>
 <div class="item" style="font-size: 20px; color: #ffffff" onclick="callAppToast()">调用: showToast</div>
