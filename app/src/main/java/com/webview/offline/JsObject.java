@@ -5,6 +5,15 @@ import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+/**
+ * 1 只提供了一个js接口给前端调用,通过json参数来控制业务 (统一分发),与前端通过js通信
+ *  "{\"method\":\"doAsyncAction\",\"types\":[\"string\",\"function\",\"string\"],\"args\":[\"listenPage\",0,\"supply\"]}";
+ *  method： 真正干活的对象的方法
+ *  types: 参数类型，数组: 业务类型, function: 回调，就是一个字符串，callback的标识符,
+ *  values: 参数值, (转化callback)
+ *
+ *  这些都有就可以反射调用
+ */
 public class JsObject {
     JsBridge jsBridge;
     public JsObject(JsBridge jsBridge) {
@@ -24,7 +33,7 @@ public class JsObject {
         // 全部转移到jsapi去做吧
 //        apiRequest = "{\"method\":\"doAsyncAction\",\"types\":[\"string\",\"function\",\"string\"],\"args\":[\"listenPage\",0,\"supply\"]}";
 //        apiRequest = "{\"method\":\"doAction\",\"types\":[\"string\",\"string\"],\"args\":[\"listenPage\",\"supply\"]}";
-
+            //  "{\"code\": 200, \"result\": "{}"}"
         return jsBridge.process(apiRequest);
     }
 

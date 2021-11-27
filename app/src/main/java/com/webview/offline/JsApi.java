@@ -8,11 +8,17 @@ import android.webkit.JavascriptInterface;
  * 异步回调
  */
 public class JsApi {
+    //
     // {"method":"doAsyncAction","types":["string","function","string"],"args":["listenPage",0,"supply"]}
     // {"method":"doAction","types":["string","string"],"args":["listenPage","supply"]}
     @JavascriptInterface
     public String doAction(String dataType, final String extra) {
         Log.i(MainActivity.TAG, "doAction dataType:"+dataType+", extra:"+extra);
+        // dataType
+        switch (dataType) {
+            case "biness1":
+                return "ok";
+        }
         return "ok";
     }
 

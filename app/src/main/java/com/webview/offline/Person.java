@@ -13,4 +13,8 @@ public class Person {
         out.println(name);
         return 2;
     }
+
+    public void returnVoid() {
+        out.println("xxx");
+    }
 }

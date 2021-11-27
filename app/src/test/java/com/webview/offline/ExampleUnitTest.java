@@ -51,7 +51,19 @@ public class ExampleUnitTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void reflect3() {
+        try {
+            Person p = new Person();
+            Method addMethod = p.getClass().getDeclaredMethod("returnVoid");
+            addMethod.setAccessible(true);
+            Object xxxx = addMethod.invoke(p); // error
+            out.println("xxxx : " + xxxx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
